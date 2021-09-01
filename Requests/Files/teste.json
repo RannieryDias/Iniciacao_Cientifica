@@ -1,0 +1,157 @@
+{
+  "dados": [
+    {
+      "id": 14666,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/14666",
+      "siglaTipo": "PEC",
+      "codTipo": 136,
+      "numero": 290,
+      "ano": 2000,
+      "ementa": "Dá nova redação aos art. 49, 50 e 58 da Constituição Federal, regulando a convocação de Ministros de Estado, titular de órgão vinculado à Presidência da República, dirigentes da administração direta, indireta, de entidade reguladora ou de serviço público pelo Congresso Nacional."
+    },
+    {
+      "id": 16998,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/16998",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 1630,
+      "ano": 1999,
+      "ementa": "Isenta de pagamento de tarifa de água e esgoto das companhias públicas de saneamento e/ou empresas concessionárias, os usuários de baixa renda."
+    },
+    {
+      "id": 17915,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/17915",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 2295,
+      "ano": 2000,
+      "ementa": "Dispõe sobre a jornada de trabalho dos Enfermeiros, Técnicos e Auxiliares de Enfermagem."
+    },
+    {
+      "id": 20411,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/20411",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 3894,
+      "ano": 2000,
+      "ementa": "Disciplina a publicidade e propaganda dos Poderes Executivos, Legislativos e Judiciário, e entidades da administração indireta."
+    },
+    {
+      "id": 20632,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/20632",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 4046,
+      "ano": 1997,
+      "ementa": "Dispõe sobre o Título de Participação em Receita de Serviço Público Concedido - TR e dá outras providências."
+    },
+    {
+      "id": 20824,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/20824",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 4347,
+      "ano": 1998,
+      "ementa": "Estabelece diretrizes para uma política de prevenção e defesa dos trabalhadores, em relação aos trabalhos com movimentos repetitivos, e dá outras providências."
+    },
+    {
+      "id": 21592,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/21592",
+      "siglaTipo": "PLP",
+      "codTipo": 140,
+      "numero": 200,
+      "ano": 1989,
+      "ementa": "Dispõe sobre os requisitos para o exercício dos cargos de diretoria e presidência do Banco Central do Brasil"
+    },
+    {
+      "id": 100720,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/100720",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 7433,
+      "ano": 2002,
+      "ementa": "Dispõe sobre a tarifa social e a cobrança pelo serviço público de abastecimento de água."
+    },
+    {
+      "id": 104417,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/104417",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 46,
+      "ano": 2003,
+      "ementa": "Altera o Decreto-Lei nº 73, de 21 de novembro de 1966, fixando prazo máximo para pagamento de indenização de sinistros por parte das sociedades seguradoras e estabelecendo a multa aplicável no caso de seu descumprimento e dá outras providências."
+    },
+    {
+      "id": 118275,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/118275",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 1184,
+      "ano": 2003,
+      "ementa": "Dispõe sobre a Reprodução Assistida."
+    },
+    {
+      "id": 119037,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/119037",
+      "siglaTipo": "PLP",
+      "codTipo": 140,
+      "numero": 52,
+      "ano": 2003,
+      "ementa": "Estabelece limite para a taxa de juros praticada por instituições financeiras nacionais a pessoas físicas e jurídicas."
+    },
+    {
+      "id": 144641,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/144641",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 2563,
+      "ano": 2003,
+      "ementa": "Altera a Lei nº 7.210, de 11 de julho de 1984 (Lei de Execução Penal), para estabelecer as atribuições do serviço de inteligência penitenciária."
+    },
+    {
+      "id": 276180,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/276180",
+      "siglaTipo": "PEC",
+      "codTipo": 136,
+      "numero": 366,
+      "ano": 2005,
+      "ementa": "Dá nova redação ao inciso II do art. 98, da Constituição Federal e ao art. 30 do Ato das Disposições Constitucionais Transitórias."
+    },
+    {
+      "id": 292639,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/292639",
+      "siglaTipo": "PLP",
+      "codTipo": 140,
+      "numero": 271,
+      "ano": 2005,
+      "ementa": "Dispõe sobre o adequado tratamento tributário ao ato cooperativo"
+    },
+    {
+      "id": 321350,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/321350",
+      "siglaTipo": "PL",
+      "codTipo": 139,
+      "numero": 6930,
+      "ano": 2006,
+      "ementa": "Institui o Programa Nacional de Estímulo ao Emprego de Trabalhadores Experientes - PNETE."
+    }
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/proposicoes?ordem=ASC&ordenarPor=id"
+    },
+    {
+      "rel": "next",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/proposicoes?ordem=ASC&ordenarPor=id&pagina=2&itens=15"
+    },
+    {
+      "rel": "first",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/proposicoes?ordem=ASC&ordenarPor=id&pagina=1&itens=15"
+    },
+    {
+      "rel": "last",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/proposicoes?ordem=ASC&ordenarPor=id&pagina=367&itens=15"
+    }
+  ]
+}
