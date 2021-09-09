@@ -154,4 +154,3 @@ C:\Users\ranni\source\repos\IC_API\obj\Debug\net5.0\IC_API.dll
 C:\Users\ranni\source\repos\IC_API\obj\Debug\net5.0\ref\IC_API.dll
 C:\Users\ranni\source\repos\IC_API\obj\Debug\net5.0\IC_API.pdb
 C:\Users\ranni\source\repos\IC_API\obj\Debug\net5.0\IC_API.genruntimeconfig.cache
-C:\Users\ranni\source\repos\IC_API\obj\Debug\net5.0\IC_API.csproj.AssemblyReference.cache

@@ -28,17 +28,24 @@ namespace Requests
             //Serializers
             Serializer serializer = new Serializer();
             ProjetoDetalhadoSerializer projDetSer = new ProjetoDetalhadoSerializer();
+            AutoresSerializer autoresSerializer = new AutoresSerializer();
+            DeputadoSerializer deputadoSerializer = new DeputadoSerializer();
+            PartidoSerializer partidoSerializer = new PartidoSerializer();
 
             //Deserializing
             //teste.Enviar();
-            //List<Projeto> projetos = deserializer.DeserializeProjeto();
-            //autorDeserializer.DeserializeAutor(projetos);
-            //List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado(projetos);
-            //List<Deputado> deputados = deptDes.DeserializeDeputado();
-            parDes.DeserializePartido();
+            List<Projeto> projetos = deserializer.DeserializeProjeto();
+            List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
+            List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado(projetos);
+            List<Deputado> deputados = deptDes.DeserializeDeputado();
+            List<Partido> partidos = parDes.DeserializePartido();
 
             //Serializing
-            //projDetSer.SerializeProjetoDetalhado(projDet);
+            projDetSer.SerializeProjetoDetalhado(projDet);
+            autoresSerializer.SerializeAutor(autores);
+            deputadoSerializer.SerializeDeputado(deputados);
+            partidoSerializer.SerializePartido(partidos);
+
             //List<Autores> autores = deserializer.DeserializeProjetoAutores(projetos);
         }
 

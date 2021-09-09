@@ -17,7 +17,7 @@ namespace Requests.Deserializers
         Logger log = new Logger();
         DateTime now = DateTime.Now;
 
-        public void DeserializeAutor(List<Projeto> projetos)
+        public List<Autor> DeserializeAutor(List<Projeto> projetos)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -70,7 +70,7 @@ namespace Requests.Deserializers
 
             log.LogIt("The total of " + autores.Count + " Autores was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 
-
+            return autores;
         }
     }
 }

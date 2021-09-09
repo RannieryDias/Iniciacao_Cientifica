@@ -64,7 +64,7 @@ namespace Requests.Serializers
             timer.Reset();
 
             log.LogIt("***********************************");
-            log.LogIt("The total of " + total + " Projetos was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
+            log.LogIt("The total of " + total + " Projetos was serialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
         }
 
         public void SerializeStatusProjeto(List<StatusProposicao> status)
