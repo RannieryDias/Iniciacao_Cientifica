@@ -53,4 +53,6 @@ namespace IC_API.Models
         public string url { get; set; }
         public string ambito { get; set; }
     }
+
+
 }

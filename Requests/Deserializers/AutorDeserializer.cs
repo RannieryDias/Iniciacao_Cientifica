@@ -55,8 +55,6 @@ namespace Requests.Deserializers
                             autor.id = projeto.id;
                             autores.Add(autor);
                         }
-
-                        //autores.Add();
                     }
                     catch (Exception e)
                     {
