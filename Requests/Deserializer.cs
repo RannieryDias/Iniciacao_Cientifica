@@ -37,7 +37,7 @@ namespace Requests
                             try
                             {
                                 var pl = resposta.ToObject<Projeto>();
-                                if (pl.siglaTipo == "PEC" || pl.siglaTipo == "PL" || pl.siglaTipo == "PRC")
+                                if (pl.siglaTipo == "PEC" || pl.siglaTipo == "PL" || pl.siglaTipo == "PLP")
                                 {
                                     projetos.Add(resposta.ToObject<Projeto>());
                                     if (projetos.Count % 500 == 0)
