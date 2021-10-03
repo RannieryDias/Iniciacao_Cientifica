@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +9,17 @@ namespace IC_API.Models
 {
     public class Tramitacao
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int id
+        {
+            get { return id; }
+            set
+            {
+                id = int.Parse(projeto.id.ToString() + sequencia.ToString());
+            }
+        }
+        public ProjetoDetalhado projeto { get; set; }
         public string dataHora { get; set; }
         public int sequencia { get; set; }
         public string siglaOrgao { get; set; }

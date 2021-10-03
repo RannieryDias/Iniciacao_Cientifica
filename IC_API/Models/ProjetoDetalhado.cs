@@ -21,10 +21,6 @@ namespace IC_API.Models
         public int ano { get; set; }
         public string ementa { get; set; }
         public string dataApresentacao { get; set; }
-        //talvez não
-        public string uriOrgaoNumerador { get; set; }
-        //Não
-        public StatusProposicao statusProposicao { get; set; }
         public string uriAutores { get; set; }
         //nao
         public string descricaoTipo { get; set; }
