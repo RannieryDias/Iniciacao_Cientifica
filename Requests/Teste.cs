@@ -4,6 +4,7 @@ using IC_API.Models;
 using IC_API.Models.Responses.Autores_Response;
 using IC_API.Models.Responses.Deputado;
 using IC_API.Models.Responses.ProjetoDetalhado;
+using IC_API.Models.Responses.Tramitacoes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Requests
@@ -36,6 +38,43 @@ namespace Requests
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
+
+            using (var webClient = new System.Net.WebClient())
+            {
+
+                string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/2220292/tramitacoes");
+                //string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/1526944/tramitacoes");
+                try
+                {
+                    string pattern = "Aprovada, em";
+                    string pattern2 = "Rejeitada, em";
+                    // Create a Regex  
+                    Regex rg = new Regex(pattern);
+                    Regex rg2 = new Regex(pattern2);
+
+                    TramitacoesResponse tramitacoesResponse = JsonConvert.DeserializeObject<TramitacoesResponse>(json, settings);
+                    foreach (var response in tramitacoesResponse.dados)
+                    {
+                        if (rg.IsMatch(response.despacho))
+                        {
+                            Console.WriteLine("ae caralhaaa");
+                            break;
+                        }
+                        else if (rg2.IsMatch(response.despacho))
+                        {
+                            Console.WriteLine("Foi triste");
+                        }
+
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+            }
+
 
             List<Autores> autores = new List<Autores>();
             using (var webClient = new System.Net.WebClient())

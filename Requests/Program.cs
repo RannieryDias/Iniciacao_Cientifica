@@ -18,13 +18,13 @@ namespace Requests
         {
             //Instances of Classes
             //Deserializers
-            //Teste teste = new Teste();
+            Teste teste = new Teste();
             //AutorDeserializer autorDeserializer = new AutorDeserializer();
             //Deserializer deserializer = new Deserializer();
             //ProjetoDetalhadoDeserializer projDes = new ProjetoDetalhadoDeserializer();
             //PartidoDeserializer parDes = new PartidoDeserializer();
             //DeputadoDeserializer deptDes = new DeputadoDeserializer();
-            TramitacoesDeserializer tramitacoesDeserializer = new TramitacoesDeserializer();
+            //TramitacoesDeserializer tramitacoesDeserializer = new TramitacoesDeserializer();
             //Serializers
             //Serializer serializer = new Serializer();
             //ProjetoDetalhadoSerializer projDetSer = new ProjetoDetalhadoSerializer();
@@ -33,7 +33,7 @@ namespace Requests
             //PartidoSerializer partidoSerializer = new PartidoSerializer();
 
             ////Deserializing
-            ////teste.Enviar();
+            teste.Enviar();
             //List<Projeto> projetos = deserializer.DeserializeProjeto();
             //List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
             //List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado(projetos);
