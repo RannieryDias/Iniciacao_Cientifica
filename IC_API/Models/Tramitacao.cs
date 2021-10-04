@@ -31,7 +31,7 @@ namespace IC_API.Models
         public string descricaoSituacao { get; set; }
         public int? codSituacao { get; set; }
         public string despacho { get; set; }
-        public string url { get; set; }
+         public string url { get; set; }
         public string ambito { get; set; }
     }
 }
