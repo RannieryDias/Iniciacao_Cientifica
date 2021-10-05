@@ -43,8 +43,6 @@ namespace Requests.Deserializers
             log.LogIt("***********************************");
             foreach (var projeto in projetos)
             {
-                //APAGAR!!!!!!!!!!!
-                if (projetosDetalhados.Count > 10) break;
                 using (var webClient = new System.Net.WebClient())
                 {
                     List<Projeto> projToStatus = new List<Projeto>();

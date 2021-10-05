@@ -39,14 +39,12 @@ namespace Requests.Deserializers
                         {
                             if (rg.IsMatch(response.despacho))
                             {
-                                Console.WriteLine("ae caralhaaa");
                                 projeto.foiAPlenario = true;
                                 projeto.foiAprovado = true;
                                 break;
                             }
                             else if (rg2.IsMatch(response.despacho))
                             {
-                                Console.WriteLine("Foi triste");
                                 projeto.foiAPlenario = true;
                                 projeto.foiAprovado = false;
                             }

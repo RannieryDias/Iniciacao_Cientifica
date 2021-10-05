@@ -57,7 +57,6 @@ namespace Requests
                     {
                         if (rg.IsMatch(response.despacho))
                         {
-                            Console.WriteLine("ae caralhaaa");
                             break;
                         }
                         else if (rg2.IsMatch(response.despacho))

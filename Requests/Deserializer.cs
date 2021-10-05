@@ -1,4 +1,6 @@
-﻿using IC_API.Models;
+﻿using AutoMapper;
+using IC_API.Models;
+using IC_API.Models.Responses;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,13 @@ namespace Requests
 
         public List<Projeto> DeserializeProjeto()
         {
+            //Mapping objects
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Dados, Projeto>();
+                //cfg.CreateMap<IC_API.Models.Responses.ProjetoDetalhado.StatusProposicao, IC_API.Models.StatusProposicao>();
+            });
+
             List<Projeto> projetos = new List<Projeto>();
             using (var webClient = new System.Net.WebClient())
             {
@@ -26,24 +35,23 @@ namespace Requests
                 log.LogIt("Trying to connect to the URL...");
                 log.LogIt("***********************************");
                 timer.Start();
-                for (int i = 1; i <= 62; i++)
+                for (int i = 1; i <= 71; i++)
                 {
                     try
                     {
-                        string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes?pagina={i}&itens=100&ordem=ASC&ordenarPor=id");
+                        string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes?siglaTipo=pec&siglaTipo=PL&siglaTipo=PLP&pagina={i}&itens=100&ordem=ASC&ordenarPor=id");
                         JObject o = JObject.Parse(json);
                         foreach (var resposta in o.SelectToken("$.dados"))
                         {
                             try
                             {
                                 var pl = resposta.ToObject<Projeto>();
-                                if (pl.siglaTipo == "PEC" || pl.siglaTipo == "PL" || pl.siglaTipo == "PLP")
+                                
+                                projetos.Add(resposta.ToObject<Projeto>());
+
+                                if (projetos.Count % 500 == 0)
                                 {
-                                    projetos.Add(resposta.ToObject<Projeto>());
-                                    if (projetos.Count % 500 == 0)
-                                    {
-                                        log.LogIt(projetos.Count + " Projetos deserialized");
-                                    }
+                                    log.LogIt(projetos.Count + " Projetos deserialized");
                                 }
                             }
                             catch

@@ -19,11 +19,11 @@ namespace Requests
             //Instances of Classes
             //Deserializers
             //Teste teste = new Teste();
-            //AutorDeserializer autorDeserializer = new AutorDeserializer();
+            AutorDeserializer autorDeserializer = new AutorDeserializer();
             Deserializer deserializer = new Deserializer();
             ProjetoDetalhadoDeserializer projDes = new ProjetoDetalhadoDeserializer();
-            //PartidoDeserializer parDes = new PartidoDeserializer();
-            //DeputadoDeserializer deptDes = new DeputadoDeserializer();
+            PartidoDeserializer parDes = new PartidoDeserializer();
+            DeputadoDeserializer deptDes = new DeputadoDeserializer();
             TramitacoesDeserializer tramitacoesDeserializer = new TramitacoesDeserializer();
 
             //Serializers
@@ -37,18 +37,17 @@ namespace Requests
             ////Deserializing
             //teste.Enviar();
             List<Projeto> projetos = deserializer.DeserializeProjeto();
-            //List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
+            List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
             List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado(projetos);
-            //List<Deputado> deputados = deptDes.DeserializeDeputado();
-            //List<Partido> partidos = parDes.DeserializePartido();
-            //tramitacoesDeserializer.DeserializeTramitacoes();
+            List<Deputado> deputados = deptDes.DeserializeDeputado();
+            List<Partido> partidos = parDes.DeserializePartido();
             tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
 
             ////Serializing
             //projDetSer.SerializeProjetoDetalhado(projDet);
-            //autoresSerializer.SerializeAutor(autores);
-            //deputadoSerializer.SerializeDeputado(deputados);
-            //partidoSerializer.SerializePartido(partidos);
+            //genericSerializer.SerializeProjetoDetalhado(autores);
+            //genericSerializer.SerializeProjetoDetalhado(deputados);
+            genericSerializer.SerializeProjetoDetalhado(partidos);
             genericSerializer.SerializeProjetoDetalhado(projDet);
             //List<Autores> autores = deserializer.DeserializeProjetoAutores(projetos);
         }
