@@ -11,9 +11,13 @@ namespace IC_API.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int id
+        private int id;
+        public int Id
         {
-            get { return id; }
+            get
+            {
+                return this.id;
+            }
             set
             {
                 id = int.Parse(projeto.id.ToString() + sequencia.ToString());

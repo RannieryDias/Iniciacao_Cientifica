@@ -23,7 +23,7 @@ namespace Requests.Deserializers
             MissingMemberHandling = MissingMemberHandling.Ignore
         };
 
-        public List<ProjetoDetalhado> DeserializeProjetoDetalhado(List<Projeto> projetos)
+        public List<ProjetoDetalhado> DeserializeProjetoDetalhado_NonIteractive(List<Projeto> projetos)
         {
             //Mapping objects
             var config = new MapperConfiguration(cfg =>
@@ -41,37 +41,49 @@ namespace Requests.Deserializers
             log.LogIt("***********************************");
             log.LogIt("Trying to connect to the URL...");
             log.LogIt("***********************************");
+
             foreach (var projeto in projetos)
             {
                 using (var webClient = new System.Net.WebClient())
                 {
                     List<Projeto> projToStatus = new List<Projeto>();
-
-                    string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/{projeto.id}");
                     try
                     {
-                        List<IC_API.Models.StatusProposicao> status = new List<IC_API.Models.StatusProposicao>();
+                        string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/{projeto.id}");
 
-                        ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
-
-                        projToStatus.Add(projeto);
-
-                        status.Add(DeserializeProjetoStatus(projToStatus).First());
-
-                        ProjetoDetalhado aux = mapper.Map<ProjetoDetalhado>(propo.dados);
-
-                        //aux.statusProposicao = status.First();
-
-                        projetosDetalhados.Add(mapper.Map<ProjetoDetalhado>(propo.dados));
-
-                        if (projetosDetalhados.Count % 500 == 0)
+                        try
                         {
-                            log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized");
+                            List<IC_API.Models.StatusProposicao> status = new List<IC_API.Models.StatusProposicao>();
+
+                            ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
+
+                            if (propo.dados.siglaTipo == "PEC" || propo.dados.siglaTipo == "PL" || propo.dados.siglaTipo == "PLP")
+                            {
+                                //projToStatus.Add(projeto);
+
+                                //status.Add(DeserializeProjetoStatus(projToStatus).First());
+
+                                ProjetoDetalhado aux = mapper.Map<ProjetoDetalhado>(propo.dados);
+
+                                //aux.statusProposicao = status.First();
+
+                                projetosDetalhados.Add(mapper.Map<ProjetoDetalhado>(propo.dados));
+
+                                if (projetosDetalhados.Count % 500 == 0)
+                                {
+                                    log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized");
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            log.LogIt("Could not parse response: " + projeto.id + " to object type of ProjetoDetalhado " + "error: " + e.Message);
+
                         }
                     }
                     catch (Exception e)
                     {
-                        log.LogIt("Could not parse response: " + projeto.id + " to object type of ProjetoDetalhado " + "error: " + e.Message);
+                        log.LogIt("Could not connect to projeto id: " + projeto.id + " " + e.Message);
                     }
                 }
             }
@@ -81,6 +93,78 @@ namespace Requests.Deserializers
 
             log.LogIt("The total of " + projetosDetalhados.Count + " ProjetosDetalhados was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 
+            return projetosDetalhados;
+        }
+
+        public List<ProjetoDetalhado> DeserializeProjetoDetalhado_Iteractive()
+        {
+            //Mapping objects
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Dados, ProjetoDetalhado>();
+                cfg.CreateMap<IC_API.Models.Responses.ProjetoDetalhado.StatusProposicao, IC_API.Models.StatusProposicao>();
+            });
+            IMapper mapper = config.CreateMapper();
+
+            List<ProjetoDetalhado> projetosDetalhados = new List<ProjetoDetalhado>();
+
+            timer.Start();
+            log.LogIt("***********************************");
+            log.LogIt("Started to deserialize Proposicoes Detalhadas at: " + now);
+            log.LogIt("***********************************");
+            log.LogIt("Trying to connect to the URL...");
+            log.LogIt("***********************************");
+
+            for (int i = 10000; i <= 15000; i++)
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    List<Projeto> projToStatus = new List<Projeto>();
+                    try
+                    {
+                        string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/{i}");
+
+                        try
+                        {
+                            List<IC_API.Models.StatusProposicao> status = new List<IC_API.Models.StatusProposicao>();
+
+                            ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
+
+                            if (propo.dados.siglaTipo == "PEC" || propo.dados.siglaTipo == "PL" || propo.dados.siglaTipo == "PLP")
+                            {
+                                //projToStatus.Add(projeto);
+
+                                //status.Add(DeserializeProjetoStatus(projToStatus).First());
+
+                                ProjetoDetalhado aux = mapper.Map<ProjetoDetalhado>(propo.dados);
+
+                                //aux.statusProposicao = status.First();
+
+                                projetosDetalhados.Add(mapper.Map<ProjetoDetalhado>(propo.dados));
+
+                                if (projetosDetalhados.Count % 500 == 0)
+                                {
+                                    log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized");
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            log.LogIt("Could not parse response: " + i + " to object type of ProjetoDetalhado " + "error: " + e.Message);
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        log.LogIt("Could not connect to projeto id: " + i + " " + e.Message);
+                    }
+                }
+            }
+            timer.Stop();
+            TimeSpan ts = timer.Elapsed;
+            timer.Reset();
+
+            log.LogIt("The total of " + projetosDetalhados.Count + " ProjetosDetalhados was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 
             return projetosDetalhados;
         }

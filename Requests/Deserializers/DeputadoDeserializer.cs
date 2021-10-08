@@ -59,7 +59,7 @@ namespace Requests.Deserializers
                             deputados.Add(mapper.Map<Deputado>(deputadoResponse.dados));
                             if (deputados.Count % 100 == 0)
                             {
-                                log.LogIt(deputados.Count + " ProjetosDetalhados deserialized");
+                                log.LogIt(deputados.Count + " Deputados deserialized");
                             }
                         }
                         catch (Exception e)

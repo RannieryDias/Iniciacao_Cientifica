@@ -48,17 +48,24 @@ namespace Requests.Serializers
                 PutIntoAPI("https://localhost:44378/api/Partidos", entities);
             }
             //TODO Tramitação
-            //else if (entities.GetType() == typeof(List<>))
-            //{
-
-            //}
+            else if (entities.GetType() == typeof(List<Tramitacao>))
+            {
+                PutIntoAPI("https://localhost:44378/api/Tramitacoes", entities);
+            }
 
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
 
             log.LogIt("***********************************");
-            log.LogIt("The total of " + total + " " + entities.FirstOrDefault().GetType() + " was serialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
+            try
+            {
+                log.LogIt("The total of " + total + " " + entities.FirstOrDefault().GetType() + " was serialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
+            }
+            catch (NullReferenceException)
+            {
+                log.LogIt("No item to add to the database");   
+            }
         }
 
         public void PutIntoAPI<T>(string url, List<T> entities)
@@ -87,7 +94,7 @@ namespace Requests.Serializers
                     total++;
                     if (total % 500 == 0)
                     {
-                        log.LogIt(total+ " saved " + entity.GetType() + "s on DB");
+                        log.LogIt(total + " saved " + entity.GetType() + "s on DB");
                     }
                 }
                 catch (Exception e)

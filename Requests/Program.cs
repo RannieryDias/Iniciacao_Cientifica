@@ -9,6 +9,7 @@ using IC_API.Models;
 using Requests.Deserializers;
 using Requests.Serializers;
 using IC_API.Model;
+using System.Media;
 
 namespace Requests
 {
@@ -27,29 +28,29 @@ namespace Requests
             TramitacoesDeserializer tramitacoesDeserializer = new TramitacoesDeserializer();
 
             //Serializers
-            //Serializer serializer = new Serializer();
-            //ProjetoDetalhadoSerializer projDetSer = new ProjetoDetalhadoSerializer();
-            //AutoresSerializer autoresSerializer = new AutoresSerializer();
-            //DeputadoSerializer deputadoSerializer = new DeputadoSerializer();
-            //PartidoSerializer partidoSerializer = new PartidoSerializer();
             GenericSerializer genericSerializer = new GenericSerializer();
+
 
             ////Deserializing
             //teste.Enviar();
             List<Projeto> projetos = deserializer.DeserializeProjeto();
-            List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
-            List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado(projetos);
-            List<Deputado> deputados = deptDes.DeserializeDeputado();
-            List<Partido> partidos = parDes.DeserializePartido();
-            tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
+            List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado_NonIteractive(projetos);
+            List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
+            //List<Autor> autores = autorDeserializer.DeserializeAutor(projDet);
+            //List<Deputado> deputados = deptDes.DeserializeDeputado();
+            //List<Partido> partidos = parDes.DeserializePartido();
 
             ////Serializing
-            //projDetSer.SerializeProjetoDetalhado(projDet);
+            genericSerializer.SerializeProjetoDetalhado(projDet);
+            //genericSerializer.SerializeProjetoDetalhado(tramitacoes);
             //genericSerializer.SerializeProjetoDetalhado(autores);
             //genericSerializer.SerializeProjetoDetalhado(deputados);
-            genericSerializer.SerializeProjetoDetalhado(partidos);
-            genericSerializer.SerializeProjetoDetalhado(projDet);
+            //genericSerializer.SerializeProjetoDetalhado(partidos);
             //List<Autores> autores = deserializer.DeserializeProjetoAutores(projetos);
+            //Console.WriteLine(projDet.Count);
+//#pragma warning disable CA1416 // Validate platform compatibility
+//            SystemSounds.Asterisk.Play();
+//#pragma warning restore CA1416 // Validate platform compatibility
         }
 
     }

@@ -27,42 +27,57 @@ namespace Requests
             });
 
             List<Projeto> projetos = new List<Projeto>();
-            using (var webClient = new System.Net.WebClient())
+            for (int ano = 2020; ano > 2015; ano--)
             {
-                log.LogIt("***********************************");
-                log.LogIt("Started at: " + now);
-                log.LogIt("***********************************");
-                log.LogIt("Trying to connect to the URL...");
-                log.LogIt("***********************************");
-                timer.Start();
-                for (int i = 1; i <= 71; i++)
+                using (var webClient = new System.Net.WebClient())
                 {
-                    try
-                    {
-                        string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes?siglaTipo=pec&siglaTipo=PL&siglaTipo=PLP&pagina={i}&itens=100&ordem=ASC&ordenarPor=id");
-                        JObject o = JObject.Parse(json);
-                        foreach (var resposta in o.SelectToken("$.dados"))
-                        {
-                            try
-                            {
-                                var pl = resposta.ToObject<Projeto>();
-                                
-                                projetos.Add(resposta.ToObject<Projeto>());
+                    log.LogIt("***********************************");
+                    log.LogIt("Started at: " + now);
+                    log.LogIt("***********************************");
+                    log.LogIt("Trying to connect to the URL...");
+                    log.LogIt("***********************************");
+                    timer.Start();
 
-                                if (projetos.Count % 500 == 0)
+                    for (int i = 1; ; i++)
+                    {
+                        try
+                        {
+                            string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes?siglaTipo=PEC&siglaTipo=PL&siglaTipo=PLP&ano={ano}&pagina={i}&itens=100&ordem=ASC&ordenarPor=id");
+                            JObject o = JObject.Parse(json);
+                            foreach (var resposta in o.SelectToken("$.dados"))
+                            {
+                                try
                                 {
-                                    log.LogIt(projetos.Count + " Projetos deserialized");
+
+                                    var pl = resposta.ToObject<Projeto>();
+
+                                    projetos.Add(resposta.ToObject<Projeto>());
+
+                                    if (projetos.Count % 500 == 0)
+                                    {
+                                        log.LogIt(projetos.Count + " Projetos deserialized");
+                                    }
+                                }
+                                catch
+                                {
+                                    log.LogIt("Could not parse response: " + resposta + "to object type of Projeto");
                                 }
                             }
-                            catch
+                            if (o.SelectToken("$.dados").First() == null) { }
+
+                        }
+                        catch (Exception e)
+                        {
+                            log.LogIt("Could not connect to the url: " + e.Message);
+                            if (e.Message.Contains("no elements"))
                             {
-                                log.LogIt("Could not parse response: " + resposta + "to object type of Projeto");
+                                break;
+                            }
+                            if (e.Message.Contains("404"))
+                            {
+                                break;
                             }
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        log.LogIt("Could not connect to the url: " + e.Message);
                     }
                 }
             }

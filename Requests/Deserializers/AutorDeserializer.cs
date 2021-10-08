@@ -17,7 +17,7 @@ namespace Requests.Deserializers
         Logger log = new Logger();
         DateTime now = DateTime.Now;
 
-        public List<Autor> DeserializeAutor(List<Projeto> projetos)
+        public List<Autor> DeserializeAutor(List<ProjetoDetalhado> projetos)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
