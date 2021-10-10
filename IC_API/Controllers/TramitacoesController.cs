@@ -47,7 +47,7 @@ namespace IC_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTramitacao(int id, Tramitacao tramitacao)
         {
-            if (id != tramitacao.Id)
+            if (id != tramitacao.id)
             {
                 return BadRequest();
             }
@@ -85,7 +85,7 @@ namespace IC_API.Controllers
             }
             catch (DbUpdateException)
             {
-                if (TramitacaoExists(tramitacao.Id))
+                if (TramitacaoExists(tramitacao.id))
                 {
                     return Conflict();
                 }
@@ -95,7 +95,7 @@ namespace IC_API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTramitacao", new { id = tramitacao.Id }, tramitacao);
+            return CreatedAtAction("GetTramitacao", new { id = tramitacao.id }, tramitacao);
         }
 
         // DELETE: api/Tramitacoes/5
@@ -116,7 +116,7 @@ namespace IC_API.Controllers
 
         private bool TramitacaoExists(int id)
         {
-            return _context.Tramitacao.Any(e => e.Id == id);
+            return _context.Tramitacao.Any(e => e.id == id);
         }
     }
 }

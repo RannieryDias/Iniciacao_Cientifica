@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IC_API.Models
 {
@@ -11,18 +7,7 @@ namespace IC_API.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        private int id;
-        public int Id
-        {
-            get
-            {
-                return this.id;
-            }
-            set
-            {
-                id = int.Parse(projeto.id.ToString() + sequencia.ToString());
-            }
-        }
+        public int id { get; set; }
         public ProjetoDetalhado projeto { get; set; }
         public string dataHora { get; set; }
         public int sequencia { get; set; }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using IC_API.Model;
-using IC_API.Models;
 using IC_API.Models.Responses;
 using IC_API.Models.Responses.Deputado;
 using Newtonsoft.Json;
@@ -8,9 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Requests.Deserializers
 {
@@ -53,8 +49,6 @@ namespace Requests.Deserializers
 
                         try
                         {
-                            //int indexOf = json.IndexOf("redeSocial");
-                            //json = json.Remove(indexOf + 12, 2);
                             deputadoResponse = JsonConvert.DeserializeObject<DeputadoResponse>(json);
                             deputados.Add(mapper.Map<Deputado>(deputadoResponse.dados));
                             if (deputados.Count % 100 == 0)
@@ -65,9 +59,6 @@ namespace Requests.Deserializers
                         catch (Exception e)
                         {
                             log.LogIt("Could not parse response: " + dept.id + " to object type of Deputado " + "error: " + e.Message);
-                            //log.LogIt("Saving Json... ");
-                            //string FileName = Path.Combine(@"E:\DeputadosPulados\", dept.id + ".json");
-                            //File.WriteAllText(FileName, json);
                         }
                     }
                 }

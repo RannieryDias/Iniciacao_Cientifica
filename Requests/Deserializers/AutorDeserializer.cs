@@ -17,7 +17,7 @@ namespace Requests.Deserializers
         Logger log = new Logger();
         DateTime now = DateTime.Now;
 
-        public List<Autor> DeserializeAutor(List<ProjetoDetalhado> projetos)
+        public List<Autor> DeserializeAutor(List<Projeto> projetos)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -52,13 +52,15 @@ namespace Requests.Deserializers
                         foreach (var response in autoresResponse.dados)
                         {
                             Autor autor = mapper.Map<Autor>(response);
-                            autor.id = projeto.id;
+                            autor.id = int.Parse(projeto.id.ToString() + autor.proponente.ToString());
+                            var cod = response.uri.Substring(response.uri.LastIndexOf("/") + 1);
+                            autor.codDeputado = int.Parse(cod);
                             autores.Add(autor);
                         }
                     }
                     catch (Exception e)
                     {
-                        log.LogIt("Could not parse autor of response: " + projeto.id + " to object type of ProjetoDetalhado " + "error: " + e.Message);
+                        log.LogIt("Could not parse autor of response: " + projeto.id + " to object type of Autores " + "error: " + e.Message);
                     }
                 }
             }

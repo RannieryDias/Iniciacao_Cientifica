@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Requests
 {
@@ -23,11 +21,10 @@ namespace Requests
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Dados, Projeto>();
-                //cfg.CreateMap<IC_API.Models.Responses.ProjetoDetalhado.StatusProposicao, IC_API.Models.StatusProposicao>();
             });
 
             List<Projeto> projetos = new List<Projeto>();
-            for (int ano = 2020; ano > 2015; ano--)
+            for (int ano = 2020; ano > 2019; ano--)
             {
                 using (var webClient = new System.Net.WebClient())
                 {
