@@ -52,10 +52,14 @@ namespace Requests.Deserializers
                         foreach (var response in autoresResponse.dados)
                         {
                             Autor autor = mapper.Map<Autor>(response);
-                            autor.id = int.Parse(projeto.id.ToString() + autor.proponente.ToString());
                             var cod = response.uri.Substring(response.uri.LastIndexOf("/") + 1);
                             autor.codDeputado = int.Parse(cod);
+                            autor.id = int.Parse(projeto.id.ToString() + autor.codDeputado.ToString());
                             autores.Add(autor);
+                            if (autores.Count % 500 == 0)
+                            {
+                                log.LogIt(autores.Count + " Autores was deserialized!");
+                            }
                         }
                     }
                     catch (Exception e)

@@ -37,7 +37,7 @@ namespace Requests
             ////Serializing
             //genericSerializer.SerializeProjetoDetalhado(projDet);
             //genericSerializer.SerializeProjetoDetalhado(tramitacoes);
-            //genericSerializer.SerializeProjetoDetalhado(autores);
+            genericSerializer.SerializeProjetoDetalhado(autores);
             //genericSerializer.SerializeProjetoDetalhado(deputados);
             //genericSerializer.SerializeProjetoDetalhado(partidos);
             //List<Autores> autores = deserializer.DeserializeProjetoAutores(projetos);

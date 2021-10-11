@@ -99,7 +99,7 @@ namespace Requests.Serializers
                 }
                 catch (Exception e)
                 {
-                    log.LogIt($"Could not parse response: " + entity + "to object type of " + entity.GetType() + ", at " + now + "Error: " + e.Message);
+                    log.LogIt($"Could not parse response: " + entity.GetType().GetProperties().FirstOrDefault() + " to object type of " + entity.GetType() + ", at " + now + "Error: " + e.Message);
                 }
             }
         }
