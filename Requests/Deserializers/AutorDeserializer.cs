@@ -54,7 +54,7 @@ namespace Requests.Deserializers
                             Autor autor = mapper.Map<Autor>(response);
                             var cod = response.uri.Substring(response.uri.LastIndexOf("/") + 1);
                             autor.codDeputado = int.Parse(cod);
-                            autor.id = int.Parse(projeto.id.ToString() + autor.codDeputado.ToString());
+                            autor.id = Int64.Parse(projeto.id.ToString() + autor.codDeputado.ToString());
                             autores.Add(autor);
                             if (autores.Count % 500 == 0)
                             {

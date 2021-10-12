@@ -11,7 +11,7 @@ namespace IC_API.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int id { get; set; }
+        public long id { get; set; }
         public int codDeputado { get; set; }
         public string nome { get; set; }
         public int codTipo { get; set; }

@@ -30,7 +30,7 @@ namespace IC_API.Controllers
 
         // GET: api/Autores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autor>> GetAutor(int id)
+        public async Task<ActionResult<Autor>> GetAutor(long id)
         {
             var autor = await _context.Autor.FindAsync(id);
 
@@ -45,7 +45,7 @@ namespace IC_API.Controllers
         // PUT: api/Autores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAutor(int id, Autor autor)
+        public async Task<IActionResult> PutAutor(long id, Autor autor)
         {
             if (id != autor.id)
             {
@@ -100,7 +100,7 @@ namespace IC_API.Controllers
 
         // DELETE: api/Autores/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAutor(int id)
+        public async Task<IActionResult> DeleteAutor(long id)
         {
             var autor = await _context.Autor.FindAsync(id);
             if (autor == null)
@@ -114,7 +114,7 @@ namespace IC_API.Controllers
             return NoContent();
         }
 
-        private bool AutorExists(int id)
+        private bool AutorExists(long id)
         {
             return _context.Autor.Any(e => e.id == id);
         }

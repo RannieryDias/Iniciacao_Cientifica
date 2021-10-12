@@ -15,7 +15,7 @@ namespace IC_API.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.9");
+                .HasAnnotation("ProductVersion", "5.0.10");
 
             modelBuilder.Entity("IC_API.Model.Deputado", b =>
                 {
@@ -117,6 +117,9 @@ namespace IC_API.Migrations
                     b.Property<int>("id")
                         .HasColumnType("int");
 
+                    b.Property<int>("codDeputado")
+                        .HasColumnType("int");
+
                     b.Property<int>("codTipo")
                         .HasColumnType("int");
 
@@ -130,9 +133,6 @@ namespace IC_API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("tipo")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("uri")
                         .HasColumnType("longtext");
 
                     b.HasKey("id");
@@ -259,6 +259,12 @@ namespace IC_API.Migrations
                     b.Property<string>("ementaDetalhada")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("foiAPlenario")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("foiAprovado")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("justificativa")
                         .HasColumnType("longtext");
 
@@ -271,9 +277,6 @@ namespace IC_API.Migrations
                     b.Property<string>("siglaTipo")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("statusProposicaoid")
-                        .HasColumnType("int");
-
                     b.Property<string>("texto")
                         .HasColumnType("longtext");
 
@@ -281,9 +284,6 @@ namespace IC_API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("uriAutores")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("uriOrgaoNumerador")
                         .HasColumnType("longtext");
 
                     b.Property<string>("uriPropAnterior")
@@ -302,8 +302,6 @@ namespace IC_API.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("id");
-
-                    b.HasIndex("statusProposicaoid");
 
                     b.ToTable("ProjetoDetalhado");
                 });
@@ -369,6 +367,9 @@ namespace IC_API.Migrations
                     b.Property<string>("despacho")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("projetoid")
+                        .HasColumnType("int");
+
                     b.Property<string>("regime")
                         .HasColumnType("longtext");
 
@@ -389,7 +390,63 @@ namespace IC_API.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("projetoid");
+
                     b.ToTable("StatusProposicao");
+                });
+
+            modelBuilder.Entity("IC_API.Models.Tramitacao", b =>
+                {
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ambito")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("codSituacao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("codTipoTramitacao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("dataHora")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("descricaoSituacao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("descricaoTramitacao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("despacho")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("projetoid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("regime")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("sequencia")
+                        .HasColumnType("int");
+
+                    b.Property<string>("siglaOrgao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("uriOrgao")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("uriUltimoRelator")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("projetoid");
+
+                    b.ToTable("Tramitacao");
                 });
 
             modelBuilder.Entity("IC_API.Model.Deputado", b =>
@@ -410,15 +467,6 @@ namespace IC_API.Migrations
                     b.Navigation("status");
                 });
 
-            modelBuilder.Entity("IC_API.Models.ProjetoDetalhado", b =>
-                {
-                    b.HasOne("IC_API.Models.StatusProposicao", "statusProposicao")
-                        .WithMany()
-                        .HasForeignKey("statusProposicaoid");
-
-                    b.Navigation("statusProposicao");
-                });
-
             modelBuilder.Entity("IC_API.Models.Status", b =>
                 {
                     b.HasOne("IC_API.Models.Lider", "lider")
@@ -426,6 +474,24 @@ namespace IC_API.Migrations
                         .HasForeignKey("liderid");
 
                     b.Navigation("lider");
+                });
+
+            modelBuilder.Entity("IC_API.Models.StatusProposicao", b =>
+                {
+                    b.HasOne("IC_API.Models.ProjetoDetalhado", "projeto")
+                        .WithMany()
+                        .HasForeignKey("projetoid");
+
+                    b.Navigation("projeto");
+                });
+
+            modelBuilder.Entity("IC_API.Models.Tramitacao", b =>
+                {
+                    b.HasOne("IC_API.Models.ProjetoDetalhado", "projeto")
+                        .WithMany()
+                        .HasForeignKey("projetoid");
+
+                    b.Navigation("projeto");
                 });
 #pragma warning restore 612, 618
         }
