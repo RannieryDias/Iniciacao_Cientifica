@@ -3,6 +3,7 @@ using IC_API.Models;
 using Requests.Deserializers;
 using Requests.Serializers;
 using System.Media;
+using IC_API.Model;
 
 namespace Requests
 {
@@ -27,17 +28,18 @@ namespace Requests
             ////Deserializing
             //teste.Enviar();
             List<Projeto> projetos = deserializer.DeserializeProjeto();
-            //List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado_NonIteractive(projetos);
-            //List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
+            List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado_NonIteractive(projetos);
+            List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
+            //List<Tramitacao> tramitacoes2 = tramitacoesDeserializer.DeserializeTramitacoesCod(ref projDet);
             //List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(projetos);
-            List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
+            //List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
             //List<Deputado> deputados = deptDes.DeserializeDeputado();
             //List<Partido> partidos = parDes.DeserializePartido();
 
             ////Serializing
             //genericSerializer.SerializeProjetoDetalhado(projDet);
-            //genericSerializer.SerializeProjetoDetalhado(tramitacoes);
-            genericSerializer.SerializeProjetoDetalhado(autores);
+            genericSerializer.SerializeProjetoDetalhado(tramitacoes);
+            //genericSerializer.SerializeProjetoDetalhado(autores);
             //genericSerializer.SerializeProjetoDetalhado(deputados);
             //genericSerializer.SerializeProjetoDetalhado(partidos);
             //List<Autores> autores = deserializer.DeserializeProjetoAutores(projetos);

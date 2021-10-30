@@ -8,7 +8,7 @@ namespace IC_API.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
-        public ProjetoDetalhado projeto { get; set; }
+        public int projetoId { get; set; }
         public string dataHora { get; set; }
         public int sequencia { get; set; }
         public string siglaOrgao { get; set; }

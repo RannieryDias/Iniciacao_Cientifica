@@ -36,6 +36,8 @@ namespace Requests.Deserializers
             List<ProjetoDetalhado> projetosDetalhados = new List<ProjetoDetalhado>();
 
             timer.Start();
+            now = DateTime.Now;
+
             log.LogIt("***********************************");
             log.LogIt("Started to deserialize Proposicoes Detalhadas at: " + now);
             log.LogIt("***********************************");
@@ -57,22 +59,13 @@ namespace Requests.Deserializers
 
                             ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
 
-                            if (propo.dados.siglaTipo == "PEC" || propo.dados.siglaTipo == "PL" || propo.dados.siglaTipo == "PLP")
+                            ProjetoDetalhado aux = mapper.Map<ProjetoDetalhado>(propo.dados);
+
+                            projetosDetalhados.Add(mapper.Map<ProjetoDetalhado>(propo.dados));
+
+                            if (projetosDetalhados.Count % 500 == 0)
                             {
-                                //projToStatus.Add(projeto);
-
-                                //status.Add(DeserializeProjetoStatus(projToStatus).First());
-
-                                ProjetoDetalhado aux = mapper.Map<ProjetoDetalhado>(propo.dados);
-
-                                //aux.statusProposicao = status.First();
-
-                                projetosDetalhados.Add(mapper.Map<ProjetoDetalhado>(propo.dados));
-
-                                if (projetosDetalhados.Count % 500 == 0)
-                                {
-                                    log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized");
-                                }
+                                log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized" + " at " + now);
                             }
                         }
                         catch (Exception e)
@@ -90,6 +83,7 @@ namespace Requests.Deserializers
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("The total of " + projetosDetalhados.Count + " ProjetosDetalhados was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 
@@ -109,6 +103,8 @@ namespace Requests.Deserializers
             List<ProjetoDetalhado> projetosDetalhados = new List<ProjetoDetalhado>();
 
             timer.Start();
+            now = DateTime.Now;
+
             log.LogIt("***********************************");
             log.LogIt("Started to deserialize Proposicoes Detalhadas at: " + now);
             log.LogIt("***********************************");
@@ -163,6 +159,7 @@ namespace Requests.Deserializers
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("The total of " + projetosDetalhados.Count + " ProjetosDetalhados was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 
@@ -185,6 +182,7 @@ namespace Requests.Deserializers
             timer.Start();
             if (projetos.Count > 1)
             {
+                now = DateTime.Now;
                 log.LogIt("***********************************");
                 log.LogIt("Started to deserialize StatusPreposicao at: " + now);
                 log.LogIt("***********************************");
@@ -223,6 +221,7 @@ namespace Requests.Deserializers
 
             if (statusResponseList.Count > 1)
             {
+                now = DateTime.Now;
                 log.LogIt("The total of " + statusResponseList.Count + " StatusProjeto was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
             }
 

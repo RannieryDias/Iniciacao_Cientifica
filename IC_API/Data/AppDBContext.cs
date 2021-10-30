@@ -20,8 +20,8 @@ namespace IC_API.Data
             modelBuilder.Entity<Deputado>()
                 .HasOne(p => p.ultimoStatus);
 
-            modelBuilder.Entity<Tramitacao>()
-                .HasOne(p => p.projeto);
+            //modelBuilder.Entity<Tramitacao>()
+            //    .HasOne(p => p.projeto);
         }
 
         public DbSet<IC_API.Models.Projeto> Projeto { get; set; }

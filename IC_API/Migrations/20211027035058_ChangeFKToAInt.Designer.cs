@@ -3,14 +3,16 @@ using System;
 using IC_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IC_API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211027035058_ChangeFKToAInt")]
+    partial class ChangeFKToAInt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,9 +245,6 @@ namespace IC_API.Migrations
 
                     b.Property<int>("ano")
                         .HasColumnType("int");
-
-                    b.Property<bool?>("apensado")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("codAprovado")
                         .HasColumnType("tinyint(1)");

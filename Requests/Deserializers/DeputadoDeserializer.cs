@@ -31,6 +31,8 @@ namespace Requests.Deserializers
             DeputadoResponse deputadoResponse;
 
             timer.Start();
+            now = DateTime.Now;
+
             log.LogIt("***********************************");
             log.LogIt("Started to deserialize Deputados at: " + now);
             log.LogIt("***********************************");
@@ -71,6 +73,7 @@ namespace Requests.Deserializers
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("The total of " + deputados.Count + " Deputados was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 

@@ -3,19 +3,21 @@ using System;
 using IC_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IC_API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211011170107_ThirdCreate")]
+    partial class ThirdCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.11");
+                .HasAnnotation("ProductVersion", "5.0.10");
 
             modelBuilder.Entity("IC_API.Model.Deputado", b =>
                 {
@@ -114,8 +116,8 @@ namespace IC_API.Migrations
 
             modelBuilder.Entity("IC_API.Models.Autor", b =>
                 {
-                    b.Property<long>("id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("id")
+                        .HasColumnType("int");
 
                     b.Property<int>("codDeputado")
                         .HasColumnType("int");
@@ -244,15 +246,6 @@ namespace IC_API.Migrations
                     b.Property<int>("ano")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("apensado")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("codAprovado")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("codPlenario")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("codTipo")
                         .HasColumnType("int");
 
@@ -261,9 +254,6 @@ namespace IC_API.Migrations
 
                     b.Property<string>("descricaoTipo")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("diff")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("ementa")
                         .HasColumnType("longtext");
@@ -433,7 +423,7 @@ namespace IC_API.Migrations
                     b.Property<string>("despacho")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("projetoId")
+                    b.Property<int?>("projetoid")
                         .HasColumnType("int");
 
                     b.Property<string>("regime")
@@ -455,6 +445,8 @@ namespace IC_API.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("id");
+
+                    b.HasIndex("projetoid");
 
                     b.ToTable("Tramitacao");
                 });
@@ -487,6 +479,15 @@ namespace IC_API.Migrations
                 });
 
             modelBuilder.Entity("IC_API.Models.StatusProposicao", b =>
+                {
+                    b.HasOne("IC_API.Models.ProjetoDetalhado", "projeto")
+                        .WithMany()
+                        .HasForeignKey("projetoid");
+
+                    b.Navigation("projeto");
+                });
+
+            modelBuilder.Entity("IC_API.Models.Tramitacao", b =>
                 {
                     b.HasOne("IC_API.Models.ProjetoDetalhado", "projeto")
                         .WithMany()

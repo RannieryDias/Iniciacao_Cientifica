@@ -55,6 +55,7 @@ namespace Requests
                 }
                 catch (Exception e)
                 {
+                    now = DateTime.Now;
                     log.LogIt("Could not parse response: " + projeto + "to object type of Projeto, at " + now + "Error: " + e.Message);
                 }
 
@@ -62,6 +63,7 @@ namespace Requests
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("***********************************");
             log.LogIt("The total of " + total + " Projetos was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);

@@ -36,6 +36,11 @@ namespace IC_API.Models
         public bool foiAPlenario { get; set; }
         //public bool foiVotada { get; set; }
         public bool? foiAprovado { get; set; }
+        public bool? apensado { get; set; }
+        public bool codPlenario { get; set; }
+        public bool codAprovado { get; set; }
+        public bool diff { get; set; }
+
     }
 
     public class StatusProposicao

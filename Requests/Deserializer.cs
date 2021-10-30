@@ -24,12 +24,13 @@ namespace Requests
             });
 
             List<Projeto> projetos = new List<Projeto>();
-            for (int ano = 2020; ano > 2019; ano--)
+            for (int ano = 2004; ano > 1999; ano--)
             {
                 using (var webClient = new System.Net.WebClient())
                 {
+                    now = DateTime.Now;
                     log.LogIt("***********************************");
-                    log.LogIt("Started at: " + now);
+                    log.LogIt("Started to fetch from year: " + ano + " at: "  + now);
                     log.LogIt("***********************************");
                     log.LogIt("Trying to connect to the URL...");
                     log.LogIt("***********************************");
@@ -52,12 +53,13 @@ namespace Requests
 
                                     if (projetos.Count % 500 == 0)
                                     {
-                                        log.LogIt(projetos.Count + " Projetos deserialized");
+                                        now = DateTime.Now;
+                                        log.LogIt(projetos.Count + " Projetos deserialized at " + now);
                                     }
                                 }
                                 catch
                                 {
-                                    log.LogIt("Could not parse response: " + resposta + "to object type of Projeto");
+                                    log.LogIt("Could not parse response: " + resposta + " to object type of Projeto");
                                 }
                             }
                             if (o.SelectToken("$.dados").First() == null) { }
@@ -82,6 +84,7 @@ namespace Requests
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("The total of " + projetos.Count + " Projetos was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 
@@ -144,6 +147,7 @@ namespace Requests
         {
             List<Autores> autores = new List<Autores>();
             timer.Start();
+            now = DateTime.Now;
             log.LogIt("***********************************");
             log.LogIt("Started at: " + now);
             log.LogIt("***********************************");
@@ -183,6 +187,7 @@ namespace Requests
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("The total of " + autores.Count + " Autores was deserialized " + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
             return autores;

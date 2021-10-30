@@ -22,6 +22,7 @@ namespace Requests.Serializers
         public void SerializeProjetoDetalhado<T>(List<T> entities)
         {
             total = 0;
+            now = DateTime.Now;
 
             log.LogIt("***********************************");
             log.LogIt($"Saving entities on DB - Started at: " + now);
@@ -60,6 +61,7 @@ namespace Requests.Serializers
             log.LogIt("***********************************");
             try
             {
+                now = DateTime.Now;
                 log.LogIt("The total of " + total + " " + entities.FirstOrDefault().GetType() + " was serialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
             }
             catch (NullReferenceException)
@@ -99,6 +101,7 @@ namespace Requests.Serializers
                 }
                 catch (Exception e)
                 {
+                    now = DateTime.Now;
                     log.LogIt($"Could not parse response: " + entity.GetType().GetProperties().FirstOrDefault() + " to object type of " + entity.GetType() + ", at " + now + "Error: " + e.Message);
                 }
             }

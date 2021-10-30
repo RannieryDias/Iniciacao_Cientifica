@@ -36,6 +36,7 @@ namespace Requests.Deserializers
             List<Autor> autores = new List<Autor>();
 
             timer.Start();
+            now = DateTime.Now;
             log.LogIt("***********************************");
             log.LogIt("Started to deserialize Autores at: " + now);
             log.LogIt("***********************************");
@@ -71,6 +72,7 @@ namespace Requests.Deserializers
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();
+            now = DateTime.Now;
 
             log.LogIt("The total of " + autores.Count + " Autores was deserialized" + " during " + ts.TotalSeconds + " Seconds. Finished at: " + now);
 

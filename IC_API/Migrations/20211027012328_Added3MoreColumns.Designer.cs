@@ -3,14 +3,16 @@ using System;
 using IC_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IC_API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211027012328_Added3MoreColumns")]
+    partial class Added3MoreColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,9 +246,6 @@ namespace IC_API.Migrations
                     b.Property<int>("ano")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("apensado")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<bool>("codAprovado")
                         .HasColumnType("tinyint(1)");
 
@@ -433,7 +432,7 @@ namespace IC_API.Migrations
                     b.Property<string>("despacho")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("projetoId")
+                    b.Property<int?>("projetoid")
                         .HasColumnType("int");
 
                     b.Property<string>("regime")
@@ -455,6 +454,8 @@ namespace IC_API.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("id");
+
+                    b.HasIndex("projetoid");
 
                     b.ToTable("Tramitacao");
                 });
@@ -487,6 +488,15 @@ namespace IC_API.Migrations
                 });
 
             modelBuilder.Entity("IC_API.Models.StatusProposicao", b =>
+                {
+                    b.HasOne("IC_API.Models.ProjetoDetalhado", "projeto")
+                        .WithMany()
+                        .HasForeignKey("projetoid");
+
+                    b.Navigation("projeto");
+                });
+
+            modelBuilder.Entity("IC_API.Models.Tramitacao", b =>
                 {
                     b.HasOne("IC_API.Models.ProjetoDetalhado", "projeto")
                         .WithMany()
