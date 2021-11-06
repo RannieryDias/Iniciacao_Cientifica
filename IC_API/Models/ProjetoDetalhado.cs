@@ -39,7 +39,8 @@ namespace IC_API.Models
         public bool? apensado { get; set; }
         public bool codPlenario { get; set; }
         public bool codAprovado { get; set; }
-        public bool diff { get; set; }
+        public bool diffPlenario { get; set; }
+        public bool diffAprovado { get; set; }
 
     }
 
