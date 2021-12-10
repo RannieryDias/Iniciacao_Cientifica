@@ -25,6 +25,8 @@ namespace Requests.Deserializers
 
         public List<ProjetoDetalhado> DeserializeProjetoDetalhado_NonIteractive(List<Projeto> projetos)
         {
+            SingleProjetoTramitacoesDeserializer singleProjeto = new SingleProjetoTramitacoesDeserializer();
+
             //Mapping objects
             var config = new MapperConfiguration(cfg =>
             {
@@ -48,23 +50,25 @@ namespace Requests.Deserializers
             {
                 using (var webClient = new System.Net.WebClient())
                 {
-                    List<Projeto> projToStatus = new List<Projeto>();
                     try
                     {
                         string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/{projeto.id}");
 
                         try
                         {
-                            List<IC_API.Models.StatusProposicao> status = new List<IC_API.Models.StatusProposicao>();
+                            //List<IC_API.Models.StatusProposicao> status = new List<IC_API.Models.StatusProposicao>();
 
                             ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
 
-                            ProjetoDetalhado aux = mapper.Map<ProjetoDetalhado>(propo.dados);
+                            ProjetoDetalhado projetoDetalhado = mapper.Map<ProjetoDetalhado>(propo.dados);
 
-                            projetosDetalhados.Add(mapper.Map<ProjetoDetalhado>(propo.dados));
+                            singleProjeto.DeserializeTramitacoes(ref projetoDetalhado);
+
+                            projetosDetalhados.Add(projetoDetalhado);
 
                             if (projetosDetalhados.Count % 500 == 0)
                             {
+                                now = DateTime.Now;
                                 log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized" + " at " + now);
                             }
                         }

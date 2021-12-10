@@ -7,6 +7,7 @@ using IC_API.Models.Responses.ProjetoDetalhado;
 using IC_API.Models.Responses.Tramitacoes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Requests.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +21,7 @@ namespace Requests
 {
     class Teste
     {
+        SingleProjetoTramitacoesDeserializer singleProjeto = new SingleProjetoTramitacoesDeserializer();
         public void Enviar()
         {
             Logger log = new Logger();
@@ -101,74 +103,48 @@ namespace Requests
 
             }
 
-            //List<Deputado> deputados = new List<Deputado>();
 
-            //using (var webClient = new System.Net.WebClient())
-            //{
-            //    string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/deputados/204554");
-            //    try
-            //    {
-            //        DeputadoResponse dep = JsonConvert.DeserializeObject<DeputadoResponse>(json);
-            //        //for
-            //        deputados.Add(mapper.Map<Deputado>(dep.dados));
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e.Message);
-            //    }
-            //}
+        }
+        public List<ProjetoDetalhado> Receber()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
 
-            //using (var webClient = new System.Net.WebClient())
-            //{
-            //    string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/576322");
-            //    try
-            //    {
-            //        ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
+            //Mapping objects
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<IC_API.Models.Responses.ProjetoDetalhado.Dados, ProjetoDetalhado>();
+                cfg.CreateMap<IC_API.Models.Responses.ProjetoDetalhado.StatusProposicao, IC_API.Models.StatusProposicao>();
+            });
+            IMapper mapper = config.CreateMapper();
 
-            //        IC_API.Models.StatusProposicao status = mapper.Map<IC_API.Models.StatusProposicao>(propo.dados.statusProposicao);
+            List<ProjetoDetalhado> projetosDetalhados = new List<ProjetoDetalhado>();
 
-            //        //status.projetoDetalhadoId = projeto.id;
-            //        statusResponseList.Add(status);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e.Message);
-            //    }
-            //}
+            using (var webClient = new System.Net.WebClient())
+            {
+                string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/proposicoes/2220292");
 
-            //using (var webClient = new System.Net.WebClient())
-            //{
-            //    string json = webClient.DownloadString("https://dadosabertos.camara.leg.br/api/v2/proposicoes/2190325");
-            //    //JObject o = JObject.Parse(json);
-            //    var found = json.IndexOf("dados");
-            //    //Console.WriteLine("   {0}", json.Substring(found + 5));
-            //    IC_API.Models.Responses.ProjetoDetalhado.StatusProposicao propo = JsonConvert.DeserializeObject<IC_API.Models.Responses.ProjetoDetalhado.StatusProposicao>(json.Substring(found + 5));
+                try
+                {
+                    List<IC_API.Models.StatusProposicao> status = new List<IC_API.Models.StatusProposicao>();
 
+                    ProjetoDetalhadoResponse propo = JsonConvert.DeserializeObject<ProjetoDetalhadoResponse>(json, settings);
 
-            //    //var dst = mapper.Map<ProjetoDetalhado>(propo.dados);
+                    ProjetoDetalhado projeto = mapper.Map<ProjetoDetalhado>(propo.dados);
 
-            //    //Console.WriteLine(dst.id);
+                    singleProjeto.DeserializeTramitacoes(ref projeto);
 
-            //    Console.WriteLine(propo);
-
-            //}
-
-            //int index = 0;
-            //string[] elements = new string[14];
-
-            //using (var webClient = new System.Net.WebClient())
-            //{
-            //    string json = webClient.DownloadString("https://dadosabertos.camara.leg.br/api/v2/proposicoes/2190325");
-            //    var o = JObject.Parse(json);
-            //    foreach (var resposta in o.SelectTokens("$.dados.statusProposicao"))
-            //    {
-            //        elements[index] = resposta.ToString();
-            //        index++;
-            //    }
-            //    //elements[elements.Length - 1] = ;
-            //}
-
-
+                    projetosDetalhados.Add(projeto);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Could not parse response: " + " to object type of ProjetoDetalhado " + "error: " + e.Message);
+                }
+            }
+            return projetosDetalhados;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Requests
         {
             //Instances of Classes
             //Deserializers
-            //Teste teste = new Teste();
+            Teste teste = new Teste();
             AutorDeserializer autorDeserializer = new AutorDeserializer();
             Deserializer deserializer = new Deserializer();
             ProjetoDetalhadoDeserializer projDes = new ProjetoDetalhadoDeserializer();
@@ -27,18 +27,17 @@ namespace Requests
 
             ////Deserializing
             //teste.Enviar();
+            //List<ProjetoDetalhado> projDet = teste.Receber();
             List<Projeto> projetos = deserializer.DeserializeProjeto();
             List<ProjetoDetalhado> projDet = projDes.DeserializeProjetoDetalhado_NonIteractive(projetos);
-            List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
-            //List<Tramitacao> tramitacoes2 = tramitacoesDeserializer.DeserializeTramitacoesCod(ref projDet);
-            //List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(projetos);
+            //List<Tramitacao> tramitacoes = tramitacoesDeserializer.DeserializeTramitacoes(ref projDet);
             //List<Autor> autores = autorDeserializer.DeserializeAutor(projetos);
             //List<Deputado> deputados = deptDes.DeserializeDeputado();
             //List<Partido> partidos = parDes.DeserializePartido();
 
             ////Serializing
-            //genericSerializer.SerializeProjetoDetalhado(projDet);
-            genericSerializer.SerializeProjetoDetalhado(tramitacoes);
+            genericSerializer.SerializeProjetoDetalhado(projDet);
+            //genericSerializer.SerializeProjetoDetalhado(tramitacoes);
             //genericSerializer.SerializeProjetoDetalhado(autores);
             //genericSerializer.SerializeProjetoDetalhado(deputados);
             //genericSerializer.SerializeProjetoDetalhado(partidos);
