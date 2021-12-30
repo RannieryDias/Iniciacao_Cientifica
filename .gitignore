@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-IC_API/appsettings.Development.json
+
 
 # User-specific files
 *.rsuser
@@ -456,7 +456,6 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 
-
 IC_API/bin/
 
 IC_API/obj
@@ -464,3 +463,5 @@ IC_API/obj
 Requests/bin
 
 Requests/obj
+
+IC_API/appsettings.Development.json
