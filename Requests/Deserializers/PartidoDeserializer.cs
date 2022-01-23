@@ -39,37 +39,56 @@ namespace Requests.Deserializers
             log.LogIt("Trying to connect to the URL...");
             log.LogIt("***********************************");
 
-            using (var webClient = new System.Net.WebClient())
+            
+            for (int i = 1; ; i++)
             {
-                string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/partidos?pagina=1&itens=100&ordem=ASC&ordenarPor=sigla");
-
-                ListaPartidosResponse listaPartidos = JsonConvert.DeserializeObject<ListaPartidosResponse>(json);
-
-                foreach (var response in listaPartidos.dados)
+                try
                 {
-                    try
+                    using (var webClient = new System.Net.WebClient())
                     {
-                        json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/partidos/{response.id}");
+                        string json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/partidos?pagina={i}&itens=100&ordem=ASC&ordenarPor=sigla");
 
-                        try
-                        {
-                            PartidoResponse partido = JsonConvert.DeserializeObject<PartidoResponse>(json);
+                        ListaPartidosResponse listaPartidos = JsonConvert.DeserializeObject<ListaPartidosResponse>(json);
 
-                            partidos.Add(mapper.Map<Partido>(partido.dados));
-                        }
-                        catch (Exception e)
+                        foreach (var response in listaPartidos.dados)
                         {
-                            log.LogIt("Could not parse response: " + response.id + " to object type of StatusProposicao " + " error: " + e.Message);
+                            try
+                            {
+                                json = webClient.DownloadString($"https://dadosabertos.camara.leg.br/api/v2/partidos/{response.id}");
+
+                                try
+                                {
+                                    PartidoResponse partido = JsonConvert.DeserializeObject<PartidoResponse>(json);
+
+                                    partidos.Add(mapper.Map<Partido>(partido.dados));
+                                }
+                                catch (Exception e)
+                                {
+                                    log.LogIt("Could not parse response: " + response.id + " to object type of StatusProposicao " + " error: " + e.Message);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                log.LogIt("Could not connect to the url of the partido" + response.id + " error: " + e.Message);
+                            }
+
                         }
                     }
-                    catch (Exception e)
+                }
+                catch (Exception e)
+                {
+                    log.LogIt("Could not connect to the url: " + e.Message);
+                    if (e.Message.Contains("no elements"))
                     {
-                        log.LogIt("Could not connect to the url of the partido" + response.id + " error: " + e.Message);
+                        break;
                     }
-
+                    if (e.Message.Contains("404"))
+                    {
+                        break;
+                    }
                 }
             }
-
+ 
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();

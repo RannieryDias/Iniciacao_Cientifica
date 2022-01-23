@@ -30,7 +30,7 @@ namespace Requests
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<IC_API.Models.Responses.Autores_Response.Dado, Autor>().ForMember(x => x.id, opt => opt.Ignore());
+                cfg.CreateMap<IC_API.Models.Responses.Autores_Response.Dado, Autor>().ForMember(x => x.idProjeto, opt => opt.Ignore());
                 cfg.CreateMap<IC_API.Models.Responses.Autores_Response.AutoresResponse, Autores>();
             });
             IMapper mapper = config.CreateMapper();

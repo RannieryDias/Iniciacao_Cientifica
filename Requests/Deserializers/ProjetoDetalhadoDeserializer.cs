@@ -43,6 +43,8 @@ namespace Requests.Deserializers
             log.LogIt("***********************************");
             log.LogIt("Started to deserialize Proposicoes Detalhadas at: " + now);
             log.LogIt("***********************************");
+            log.LogIt("Will deserialize the total of : " + projetos.Count + " Projetos");
+            log.LogIt("***********************************");
             log.LogIt("Trying to connect to the URL...");
             log.LogIt("***********************************");
 
@@ -69,7 +71,8 @@ namespace Requests.Deserializers
                             if (projetosDetalhados.Count % 500 == 0)
                             {
                                 now = DateTime.Now;
-                                log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized" + " at " + now);
+                                log.LogIt(projetosDetalhados.Count + " ProjetosDetalhados deserialized, " + 
+                                    (projetos.Count - projetosDetalhados.Count) + " Projetos remaining" + " at " + now);
                             }
                         }
                         catch (Exception e)

@@ -3,14 +3,16 @@ using System;
 using IC_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IC_API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220104204606_ChangeTramitacao3")]
+    partial class ChangeTramitacao3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,8 +116,8 @@ namespace IC_API.Migrations
 
             modelBuilder.Entity("IC_API.Models.Autor", b =>
                 {
-                    b.Property<int>("idProjeto")
-                        .HasColumnType("int");
+                    b.Property<long>("id")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("codDeputado")
                         .HasColumnType("int");
@@ -135,29 +137,9 @@ namespace IC_API.Migrations
                     b.Property<string>("tipo")
                         .HasColumnType("longtext");
 
-                    b.HasKey("idProjeto", "codDeputado");
-
-                    b.ToTable("Autor");
-                });
-
-            modelBuilder.Entity("IC_API.Models.Legislatura", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("dataFim")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("dataInicio")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("uri")
-                        .HasColumnType("longtext");
-
                     b.HasKey("id");
 
-                    b.ToTable("Legislatura");
+                    b.ToTable("Autor");
                 });
 
             modelBuilder.Entity("IC_API.Models.Lider", b =>
@@ -190,49 +172,6 @@ namespace IC_API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Lider");
-                });
-
-            modelBuilder.Entity("IC_API.Models.Mesa", b =>
-                {
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idLegislatura")
-                        .HasColumnType("int");
-
-                    b.Property<string>("codTitulo")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("dataFim")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("dataInicio")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("nome")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("siglaPartido")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("siglaUf")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("titulo")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("uri")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("uriPartido")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("urlFoto")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("id", "idLegislatura", "codTitulo");
-
-                    b.ToTable("Mesa");
                 });
 
             modelBuilder.Entity("IC_API.Models.Partido", b =>
@@ -375,19 +314,6 @@ namespace IC_API.Migrations
                     b.ToTable("ProjetoDetalhado");
                 });
 
-            modelBuilder.Entity("IC_API.Models.ProjetoTema", b =>
-                {
-                    b.Property<int>("idProjeto")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idTema")
-                        .HasColumnType("int");
-
-                    b.HasKey("idProjeto", "idTema");
-
-                    b.ToTable("ProjetoTema");
-                });
-
             modelBuilder.Entity("IC_API.Models.Status", b =>
                 {
                     b.Property<int>("id")
@@ -475,25 +401,6 @@ namespace IC_API.Migrations
                     b.HasIndex("projetoid");
 
                     b.ToTable("StatusProposicao");
-                });
-
-            modelBuilder.Entity("IC_API.Models.Tema", b =>
-                {
-                    b.Property<string>("cod")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("descricao")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("nome")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("sigla")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("cod");
-
-                    b.ToTable("Tema");
                 });
 
             modelBuilder.Entity("IC_API.Models.Tramitacao", b =>

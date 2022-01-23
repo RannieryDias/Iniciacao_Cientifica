@@ -15,8 +15,9 @@ namespace Requests
         Logger log = new Logger();
         DateTime now = DateTime.Now;
 
-        public List<Projeto> DeserializeProjeto()
+        public List<Projeto> DeserializeProjeto(int anoInicial = 2020, int anoFinal = 2019)
         {
+            
             //Mapping objects
             var config = new MapperConfiguration(cfg =>
             {
@@ -24,7 +25,7 @@ namespace Requests
             });
 
             List<Projeto> projetos = new List<Projeto>();
-            for (int ano = 2008; ano > 1999 ; ano--)
+            for (int ano = anoInicial; ano > anoFinal; ano--)
             {
                 using (var webClient = new System.Net.WebClient())
                 {

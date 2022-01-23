@@ -44,9 +44,7 @@ namespace Requests.Deserializers
                         TramitacoesResponse tramitacoes = JsonConvert.DeserializeObject<TramitacoesResponse>(json, settings);
                         foreach (var element in tramitacoes.dados)
                         {
-                            if (int.Parse(element.codTipoTramitacao) == 237 || int.Parse(element.codTipoTramitacao) == 238 ||
-                            int.Parse(element.codTipoTramitacao) == 240 || int.Parse(element.codTipoTramitacao) == 244 ||
-                            int.Parse(element.codTipoTramitacao) == 1235)
+                            if (int.Parse(element.codTipoTramitacao) == 1235)
                             {
                                 projeto.codPlenario = true;
                                 projeto.codAprovado = true;
@@ -59,11 +57,20 @@ namespace Requests.Deserializers
                                 break;
                             }
 
-                            else if (int.Parse(element.codTipoTramitacao) == 1231 || int.Parse(element.codTipoTramitacao) == 231 ||
-                                         int.Parse(element.codTipoTramitacao) == 232 || int.Parse(element.codTipoTramitacao) == 233)
+                            else if (int.Parse(element.codTipoTramitacao) == 1231 || int.Parse(element.codTipoTramitacao) == 1236)
                             {
                                 projeto.codPlenario = true;
                                 projeto.codAprovado = false;
+                            }
+
+                            else if (int.Parse(element.codTipoTramitacao) == 502)
+                            {
+                                projeto.arquivado = true;
+                            }
+
+                            else if (int.Parse(element.codTipoTramitacao) == 640)
+                            {
+                                projeto.arquivado = false;
                             }
                         }
                     }

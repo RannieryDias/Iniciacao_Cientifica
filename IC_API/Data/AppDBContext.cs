@@ -20,8 +20,17 @@ namespace IC_API.Data
             modelBuilder.Entity<Deputado>()
                 .HasOne(p => p.ultimoStatus);
 
-            //modelBuilder.Entity<Tramitacao>()
-            //    .HasOne(p => p.projeto);
+            modelBuilder.Entity<Tramitacao>()
+                .HasKey(t => new { t.projetoId, t.sequencia });
+
+            modelBuilder.Entity<Autor>()
+                .HasKey(a => new { a.idProjeto, a.codDeputado });
+
+            modelBuilder.Entity<ProjetoTema>()
+                .HasKey(p => new { p.idProjeto, p.idTema });
+
+            modelBuilder.Entity<Mesa>()
+                .HasKey(m => new { m.id, m.idLegislatura, m.codTitulo });
         }
 
         public DbSet<IC_API.Models.Projeto> Projeto { get; set; }
@@ -31,5 +40,9 @@ namespace IC_API.Data
         public DbSet<IC_API.Models.StatusProposicao> StatusProposicao { get; set; }
         public DbSet<IC_API.Models.Autor> Autor { get; set; }
         public DbSet<IC_API.Models.Tramitacao> Tramitacao { get; set; }
+        public DbSet<IC_API.Models.Tema> Tema { get; set; }
+        public DbSet<IC_API.Models.ProjetoTema> ProjetoTema { get; set; }
+        public DbSet<IC_API.Models.Legislatura> Legislatura { get; set; }
+        public DbSet<IC_API.Models.Mesa> Mesa { get; set; }
     }
 }

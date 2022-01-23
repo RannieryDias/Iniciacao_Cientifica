@@ -28,7 +28,7 @@ namespace Requests.Deserializers
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<IC_API.Models.Responses.Autores_Response.Dado, Autor>()
-                                           .ForMember(x => x.id, opt => opt.Ignore());
+                                           .ForMember(x => x.idProjeto, opt => opt.Ignore());
                 cfg.CreateMap<IC_API.Models.Responses.Autores_Response.AutoresResponse, Autores>();
             });
             IMapper mapper = config.CreateMapper();
@@ -42,6 +42,7 @@ namespace Requests.Deserializers
             log.LogIt("***********************************");
             log.LogIt("Trying to connect to the URL...");
             log.LogIt("***********************************");
+
             using (var webClient = new System.Net.WebClient())
             {
                 foreach (var projeto in projetos)
@@ -55,11 +56,12 @@ namespace Requests.Deserializers
                             Autor autor = mapper.Map<Autor>(response);
                             var cod = response.uri.Substring(response.uri.LastIndexOf("/") + 1);
                             autor.codDeputado = int.Parse(cod);
-                            autor.id = Int64.Parse(projeto.id.ToString() + autor.codDeputado.ToString());
+                            autor.idProjeto = projeto.id;
                             autores.Add(autor);
                             if (autores.Count % 500 == 0)
                             {
-                                log.LogIt(autores.Count + " Autores was deserialized!");
+                                log.LogIt(autores.Count + " Autores was deserialized! " +
+                                    (projetos.Count - autores.Count) + " Projetos remaining" + " at " + now);
                             }
                         }
                     }
@@ -69,6 +71,7 @@ namespace Requests.Deserializers
                     }
                 }
             }
+
             timer.Stop();
             TimeSpan ts = timer.Elapsed;
             timer.Reset();

@@ -33,15 +33,10 @@ namespace IC_API.Models
         public string urnFinal { get; set; }
         public string texto { get; set; }
         public string justificativa { get; set; }
-        public bool foiAPlenario { get; set; }
-        //public bool foiVotada { get; set; }
-        public bool? foiAprovado { get; set; }
-        public bool? apensado { get; set; }
         public bool codPlenario { get; set; }
         public bool codAprovado { get; set; }
-        public bool diffPlenario { get; set; }
-        public bool diffAprovado { get; set; }
-
+        public bool apensado { get; set; }
+        public bool arquivado { get; set; }
     }
 
     public class StatusProposicao

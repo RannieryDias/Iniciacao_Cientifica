@@ -62,6 +62,4 @@ namespace IC_API.Models.Responses.Deputado
         public Dados dados { get; set; }
         public List<Link> links { get; set; }
     }
-
-
 }

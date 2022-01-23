@@ -5,11 +5,14 @@ namespace IC_API.Models
 {
     public class Tramitacao
     {
+        //[Key, Column(Order = 0)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int id { get; set; }
         public int projetoId { get; set; }
         public string dataHora { get; set; }
+        //[Key, Column(Order = 1)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public int sequencia { get; set; }
         public string siglaOrgao { get; set; }
         public string uriOrgao { get; set; }
@@ -20,7 +23,7 @@ namespace IC_API.Models
         public string descricaoSituacao { get; set; }
         public int? codSituacao { get; set; }
         public string despacho { get; set; }
-         public string url { get; set; }
+        public string url { get; set; }
         public string ambito { get; set; }
     }
 }

@@ -12,47 +12,47 @@ namespace IC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TramitacoesController : ControllerBase
+    public class ProjetoTemasController : ControllerBase
     {
         private readonly AppDBContext _context;
 
-        public TramitacoesController(AppDBContext context)
+        public ProjetoTemasController(AppDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tramitacoes
+        // GET: api/ProjetoTemas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tramitacao>>> GetTramitacao()
+        public async Task<ActionResult<IEnumerable<ProjetoTema>>> GetProjetoTema()
         {
-            return await _context.Tramitacao.ToListAsync();
+            return await _context.ProjetoTema.ToListAsync();
         }
 
-        // GET: api/Tramitacoes/5
+        // GET: api/ProjetoTemas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tramitacao>> GetTramitacao(int id)
+        public async Task<ActionResult<ProjetoTema>> GetProjetoTema(int id)
         {
-            var tramitacao = await _context.Tramitacao.FindAsync(id);
+            var projetoTema = await _context.ProjetoTema.FindAsync(id);
 
-            if (tramitacao == null)
+            if (projetoTema == null)
             {
                 return NotFound();
             }
 
-            return tramitacao;
+            return projetoTema;
         }
 
-        // PUT: api/Tramitacoes/5
+        // PUT: api/ProjetoTemas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTramitacao(int id, Tramitacao tramitacao)
+        public async Task<IActionResult> PutProjetoTema(int id, ProjetoTema projetoTema)
         {
-            if (id != tramitacao.projetoId)
+            if (id != projetoTema.idProjeto)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tramitacao).State = EntityState.Modified;
+            _context.Entry(projetoTema).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace IC_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TramitacaoExists(id))
+                if (!ProjetoTemaExists(id))
                 {
                     return NotFound();
                 }
@@ -73,19 +73,19 @@ namespace IC_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Tramitacoes
+        // POST: api/ProjetoTemas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tramitacao>> PostTramitacao(Tramitacao tramitacao)
+        public async Task<ActionResult<ProjetoTema>> PostProjetoTema(ProjetoTema projetoTema)
         {
-            _context.Tramitacao.Add(tramitacao);
+            _context.ProjetoTema.Add(projetoTema);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TramitacaoExists(tramitacao.projetoId))
+                if (ProjetoTemaExists(projetoTema.idProjeto))
                 {
                     return Conflict();
                 }
@@ -95,28 +95,28 @@ namespace IC_API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTramitacao", new { id = tramitacao.projetoId }, tramitacao);
+            return CreatedAtAction("GetProjetoTema", new { id = projetoTema.idProjeto }, projetoTema);
         }
 
-        // DELETE: api/Tramitacoes/5
+        // DELETE: api/ProjetoTemas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTramitacao(int id)
+        public async Task<IActionResult> DeleteProjetoTema(int id)
         {
-            var tramitacao = await _context.Tramitacao.FindAsync(id);
-            if (tramitacao == null)
+            var projetoTema = await _context.ProjetoTema.FindAsync(id);
+            if (projetoTema == null)
             {
                 return NotFound();
             }
 
-            _context.Tramitacao.Remove(tramitacao);
+            _context.ProjetoTema.Remove(projetoTema);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TramitacaoExists(int id)
+        private bool ProjetoTemaExists(int id)
         {
-            return _context.Tramitacao.Any(e => e.projetoId == id);
+            return _context.ProjetoTema.Any(e => e.idProjeto == id);
         }
     }
 }

@@ -3,14 +3,16 @@ using System;
 using IC_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IC_API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220112114648_UpdateMesa")]
+    partial class UpdateMesa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,19 +197,23 @@ namespace IC_API.Migrations
             modelBuilder.Entity("IC_API.Models.Mesa", b =>
                 {
                     b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idLegislatura")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("codTitulo")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("dataFim")
                         .HasColumnType("longtext");
 
                     b.Property<string>("dataInicio")
                         .HasColumnType("longtext");
+
+                    b.Property<string>("idDeputado")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("idLegislatura")
+                        .HasColumnType("int");
 
                     b.Property<string>("nome")
                         .HasColumnType("longtext");
@@ -230,7 +236,7 @@ namespace IC_API.Migrations
                     b.Property<string>("urlFoto")
                         .HasColumnType("longtext");
 
-                    b.HasKey("id", "idLegislatura", "codTitulo");
+                    b.HasKey("id");
 
                     b.ToTable("Mesa");
                 });

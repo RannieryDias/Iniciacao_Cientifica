@@ -30,7 +30,7 @@ namespace IC_API.Controllers
 
         // GET: api/Autores/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autor>> GetAutor(long id)
+        public async Task<ActionResult<Autor>> GetAutor(int id)
         {
             var autor = await _context.Autor.FindAsync(id);
 
@@ -45,9 +45,9 @@ namespace IC_API.Controllers
         // PUT: api/Autores/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAutor(long id, Autor autor)
+        public async Task<IActionResult> PutAutor(int id, Autor autor)
         {
-            if (id != autor.id)
+            if (id != autor.idProjeto)
             {
                 return BadRequest();
             }
@@ -85,7 +85,7 @@ namespace IC_API.Controllers
             }
             catch (DbUpdateException)
             {
-                if (AutorExists(autor.id))
+                if (AutorExists(autor.idProjeto))
                 {
                     return Conflict();
                 }
@@ -95,12 +95,12 @@ namespace IC_API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetAutor", new { id = autor.id }, autor);
+            return CreatedAtAction("GetAutor", new { id = autor.idProjeto }, autor);
         }
 
         // DELETE: api/Autores/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAutor(long id)
+        public async Task<IActionResult> DeleteAutor(int id)
         {
             var autor = await _context.Autor.FindAsync(id);
             if (autor == null)
@@ -114,9 +114,9 @@ namespace IC_API.Controllers
             return NoContent();
         }
 
-        private bool AutorExists(long id)
+        private bool AutorExists(int id)
         {
-            return _context.Autor.Any(e => e.id == id);
+            return _context.Autor.Any(e => e.idProjeto == id);
         }
     }
 }

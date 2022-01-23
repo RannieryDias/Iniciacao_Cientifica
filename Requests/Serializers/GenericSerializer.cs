@@ -48,10 +48,25 @@ namespace Requests.Serializers
             {
                 PutIntoAPI("https://localhost:44378/api/Partidos", entities);
             }
-            //TODO Tramitação
             else if (entities.GetType() == typeof(List<Tramitacao>))
             {
                 PutIntoAPI("https://localhost:44378/api/Tramitacoes", entities);
+            }
+            else if (entities.GetType() == typeof(List<Tema>))
+            {
+                PutIntoAPI("https://localhost:44378/api/Temas", entities);
+            }
+            else if (entities.GetType() == typeof(List<ProjetoTema>))
+            {
+                PutIntoAPI("https://localhost:44378/api/ProjetoTemas", entities);
+            }
+            else if (entities.GetType() == typeof(List<Legislatura>))
+            {
+                PutIntoAPI("https://localhost:44378/api/Legislaturas", entities);
+            }
+            else if (entities.GetType() == typeof(List<Mesa>))
+            {
+                PutIntoAPI("https://localhost:44378/api/Mesas", entities);
             }
 
             timer.Stop();
@@ -102,7 +117,10 @@ namespace Requests.Serializers
                 catch (Exception e)
                 {
                     now = DateTime.Now;
-                    log.LogIt($"Could not parse response: " + entity.GetType().GetProperties().FirstOrDefault() + " to object type of " + entity.GetType() + ", at " + now + "Error: " + e.Message);
+                    //log.LogIt($"Could not parse response: " + entity.GetType().GetProperties().FirstOrDefault() + " to object type of " + entity.GetType() + ", at " + now + " Error: " + e.Message);
+
+
+                    log.LogIt($"Could not parse response: " + entity.GetType().GetProperties().FirstOrDefault().GetValue(entity) + " to object type of " + entity.GetType() + ", at " + now + " Error: " + e.Message);
                 }
             }
         }
