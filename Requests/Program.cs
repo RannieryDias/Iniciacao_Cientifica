@@ -9,7 +9,7 @@ namespace Requests
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Opa(string[] args)
         {
             Logger log = new Logger();
 
