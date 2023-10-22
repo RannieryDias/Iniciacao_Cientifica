@@ -8,28 +8,34 @@ using ProposicaoResponse = Requests.DTO.Proposicao.Root;
 using Proposicao = Requests.DTO.Proposicao.Dado;
 using System.Threading;
 using System.Collections.Concurrent;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 
 namespace Requests
 {
     public class EntryPoint
     {
-        const string PROJETO_URL = "https://dadosabertos.camara.leg.br/api/v2/proposicoes?pagina=&itens=100&ordem=ASC&ordenarPor=id";
+        static bool lastPageHit = false;
 
         static async Task Main(string[] args)
         {
+            const string PROJETO_URL = "https://dadosabertos.camara.leg.br/api/v2/proposicoes?pagina=&itens=100&ordem=ASC&ordenarPor=id";
             int pageIndex = 125;
-            bool lastPageHit = false;
+
+            var proposicoesList = await FetchProposicoesAsync(PROJETO_URL, pageIndex);
+
+            await SerializeProposicao(proposicoesList);
+        }
+
+        private static async Task<List<Proposicao>> FetchProposicoesAsync(string PROJETO_URL, int pageIndex)
+        {
             List<Proposicao> proposicoesList = new List<Proposicao>();
             while (!lastPageHit)
             {
-                (List<Proposicao> proposicoesListAux, lastPageHit) = await DeserializeProjetosTesteAsync(PROJETO_URL, pageIndex, 5);
+                (List<Proposicao> proposicoesListAux, lastPageHit) = await DeserializeProjetosTesteAsync(url: PROJETO_URL, pageIndex, threads: 5);
                 proposicoesList.AddRange(proposicoesListAux);
             }
 
-            await SerializeProposicao(proposicoesList);
+            return proposicoesList;
         }
 
         public static async Task<Tuple<List<Proposicao>, bool>> DeserializeProjetosTesteAsync(string url, int pageIndex, int threads = 1)
