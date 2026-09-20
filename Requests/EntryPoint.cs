@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Requests.DeserializerNewArchtecture;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Requests.Exceptions;
 using Requests.SerializerNewArchtecture;
-using ProposicaoResponse = Requests.DTO.Proposicao.Root;
-using Proposicao = Requests.DTO.Proposicao.Dado;
-using System.Threading;
-using System.Collections.Concurrent;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Proposicao = Requests.DTO.Proposicao.Dado;
+using ProposicaoResponse = Requests.DTO.Proposicao.Root;
 
 namespace Requests
 {
@@ -18,12 +19,63 @@ namespace Requests
 
         static async Task Main(string[] args)
         {
-            const string PROJETO_URL = "https://dadosabertos.camara.leg.br/api/v2/proposicoes?pagina=&itens=100&ordem=ASC&ordenarPor=id";
-            int pageIndex = 125;
+            int pageIndex = 15;
+            string PROJETO_URL = $"https://dadosabertos.camara.leg.br/api/v2/proposicoes?pagina={pageIndex}&itens=100&ordem=ASC&ordenarPor=id";
 
-            var proposicoesList = await FetchProposicoesAsync(PROJETO_URL, pageIndex);
+            List<Proposicao> _proposicoes = new List<Proposicao>();
 
-            await SerializeProposicao(proposicoesList);
+            using IHost host = Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    // Registra o HttpClient tipado para IApiClient
+                    services.AddHttpClient<ApiClient, ApiClient>(client =>
+                    {
+                        client.BaseAddress = new Uri(PROJETO_URL);
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    });
+                })
+                .Build();
+
+            // Obtém uma instância do serviço
+            ApiClient apiClient = host.Services.GetRequiredService<ApiClient>();
+
+            // Usa o client
+            try
+            {
+                var proposicaoResponse = await apiClient.GetAsync<ProposicaoResponse>(PROJETO_URL);
+
+                _proposicoes.AddRange(proposicaoResponse.dados);
+
+                Console.WriteLine($"Produto: {proposicaoResponse.dados.Count}");
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+            }
+
+            // O host é descartado automaticamente ao final do bloco 'using'
+
+            //await FetchEntitiesAsync(PROJETO_URL, pageIndex);
+
+            //var proposicoesList = await FetchProposicoesAsync(PROJETO_URL, pageIndex);
+
+            //await SerializeProposicao(proposicoesList);
+        }
+
+        private static async Task TaskFetchProjetos(string url, int pageIndex)
+        {
+            //EntityFetcher<Proposicao> entityFetcher = new EntityFetcher<Proposicao>();
+        }
+
+        private static async Task FetchEntitiesAsync(string url, int pageIndex)
+        {
+            //const string PROJETO_URL = "https://dadosabertos.camara.leg.br/api/v2/proposicoes?pagina=&itens=100&ordem=ASC&ordenarPor=id";
+
+            //EntityFetcher<Proposicao> entityFetcher = new EntityFetcher<Proposicao>();
+            //RequestEntityType entityType = RequestEntityType.PROPOSICOES;
+
+            //var opa = await entityFetcher.FetchEntitiesAsync(url: url, pageIndex: pageIndex, requestEntityType: entityType, threads: 2);
         }
 
         private static async Task<List<Proposicao>> FetchProposicoesAsync(string PROJETO_URL, int pageIndex)
@@ -38,7 +90,8 @@ namespace Requests
             return proposicoesList;
         }
 
-        public static async Task<Tuple<List<Proposicao>, bool>> DeserializeProjetosTesteAsync(string url, int pageIndex, int threads = 1)
+        public static async Task<Tuple<List<Proposicao>, bool>> DeserializeProjetosTesteAsync(string url,
+                int pageIndex, int threads = 1)
         {
             bool isLastPage = false;
             object lockObject = new object();
@@ -91,15 +144,17 @@ namespace Requests
             List<Proposicao> proposicoesList;
 
             //TODO: log the current page that is being requested
-            using (var httpClient = new HttpClient())
-            {
-                var ProposicoesResponse = await NewDeserializer.DeserializeListAsync<ProposicaoResponse>(url, httpClient);
-                proposicoesList = ProposicoesResponse.Select(x => x.dados)
-                                                     .First()
-                                                     .ToList();
-            }
+            //using (var httpClient = new HttpClient())
+            //{
+            //    var ProposicoesResponse = await DeserializeListAsync<ProposicaoResponse>(url);
+            //    proposicoesList = ProposicoesResponse.Select(x => x.dados)
+            //                                         .First()
+            //                                         .ToList();
+            //}
 
-            return proposicoesList;
+            //return proposicoesList;
+
+            return default;
         }
 
         static async Task SerializeProposicao(List<Proposicao> proposicoesList) => await NewSerializer.SerializeEntityAsync(proposicoesList);

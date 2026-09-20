@@ -14,7 +14,7 @@ namespace Requests
     class Serializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public void SerializeProjeto(List<Projeto> projetos)

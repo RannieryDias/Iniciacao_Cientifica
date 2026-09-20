@@ -13,7 +13,7 @@ namespace Requests.Deserializers
 {
     class SingleProjetoTramitacoesDeserializer
     {
-        private Logger log = new Logger();
+        private MyLogger log = new MyLogger();
         Stopwatch timer = new Stopwatch();
 
         public void DeserializeTramitacoes(ref ProjetoDetalhado projeto)

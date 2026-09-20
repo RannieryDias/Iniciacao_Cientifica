@@ -14,7 +14,7 @@ namespace Requests.Deserializers
     class ProjetoDetalhadoDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         JsonSerializerSettings settings = new JsonSerializerSettings
