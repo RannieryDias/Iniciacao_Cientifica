@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IC_API.Models.Responses.ProjetoTema
 {
-    public class Dado
+    public class Dado : IEntityResponse
     {
         public int codTema { get; set; }
         public string tema { get; set; }

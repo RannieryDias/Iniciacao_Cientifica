@@ -14,7 +14,7 @@ namespace Requests.Deserializers
     class TramitacoesDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public void DeserializeTramitacoesCod(ref List<ProjetoDetalhado> projDet, List<Tramitacao> listaTramitacoes)

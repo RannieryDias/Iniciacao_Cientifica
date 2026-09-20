@@ -12,7 +12,7 @@ namespace Requests
     class Deserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public List<Projeto> DeserializeProjeto(int anoInicial = 2020, int anoFinal = 2019)

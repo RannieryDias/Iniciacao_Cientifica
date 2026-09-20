@@ -11,7 +11,7 @@ namespace Requests
     {
         static void Opa(string[] args)
         {
-            Logger log = new Logger();
+            MyLogger log = new MyLogger();
 
             //Instances of Classes
             //Deserializers
