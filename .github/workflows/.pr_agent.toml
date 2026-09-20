@@ -1,0 +1,29 @@
+[config]
+# O prefixo "openrouter/" é obrigatório para o LiteLLM rotear corretamente
+model = "cohere/north-mini-code:free"
+
+# Modelos de fallback caso o principal falhe
+#fallback_models = ["openrouter/deepseek/deepseek-chat"]
+
+# Limite customizado de tokens para modelos do OpenRouter
+custom_model_max_tokens = 20000
+
+[openrouter]
+# Opcional: Controla o nível de raciocínio ("none", "low", "medium", "high")
+# reasoning_effort = "low"
+
+# Opcional: Limita tokens para raciocínio
+# reasoning_max_tokens = 2048
+
+[pr_reviewer]
+# Instruções extras para a ferramenta de review
+extra_instructions = "Foque em questões de segurança e qualidade de código."
+
+[github_action_config]
+# Habilita ferramentas automáticas
+auto_review = true
+auto_describe = true
+auto_improve = true
+
+# Define quais eventos do PR acionam o agente
+pr_actions = ['opened', 'reopened', 'ready_for_review', 'review_requested', 'synchronize']
