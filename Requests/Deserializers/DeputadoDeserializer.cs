@@ -13,7 +13,7 @@ namespace Requests.Deserializers
     class DeputadoDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public List<Deputado> DeserializeDeputado()

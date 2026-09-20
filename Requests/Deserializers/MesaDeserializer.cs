@@ -14,7 +14,7 @@ namespace Requests.Deserializers
     class MesaDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public List<Mesa> DeserializeMesa(List<Legislatura> legislaturas)

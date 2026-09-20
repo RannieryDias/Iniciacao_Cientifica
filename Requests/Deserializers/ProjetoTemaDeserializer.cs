@@ -14,7 +14,7 @@ namespace Requests.Deserializers
     class ProjetoTemaDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
 

@@ -15,7 +15,7 @@ namespace Requests.Deserializers
     class PartidoDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public List<Partido> DeserializePartido()

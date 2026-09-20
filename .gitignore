@@ -465,3 +465,6 @@ Requests/bin
 Requests/obj
 
 IC_API/appsettings.json
+/IC_API/Properties/launchSettings.json
+
+.claude/

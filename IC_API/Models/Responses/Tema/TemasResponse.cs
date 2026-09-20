@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IC_API.Models.Responses.TemasResponse
 {
-    public class Dados
+    public class Dados : IEntityResponse
     {
         public string cod { get; set; }
         public string sigla { get; set; }

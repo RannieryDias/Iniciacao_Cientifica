@@ -14,7 +14,7 @@ namespace Requests.Deserializers
     class AutorDeserializer
     {
         Stopwatch timer = new Stopwatch();
-        Logger log = new Logger();
+        MyLogger log = new MyLogger();
         DateTime now = DateTime.Now;
 
         public List<Autor> DeserializeAutor(List<Projeto> projetos)

@@ -24,7 +24,7 @@ namespace Requests
         SingleProjetoTramitacoesDeserializer singleProjeto = new SingleProjetoTramitacoesDeserializer();
         public void Enviar()
         {
-            Logger log = new Logger();
+            MyLogger log = new MyLogger();
             List<Projeto> projetos = new List<Projeto>();
             Console.WriteLine("Trying to parse to API");
 
