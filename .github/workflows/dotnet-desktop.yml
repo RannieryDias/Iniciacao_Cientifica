@@ -40,7 +40,7 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "refactor-projects" ]
   pull_request:
     branches: [ "master" ]
 
